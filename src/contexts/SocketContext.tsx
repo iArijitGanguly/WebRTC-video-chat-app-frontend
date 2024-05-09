@@ -10,7 +10,7 @@ export const SocketContext = createContext<any | null>(null);
 const socket = SocketIoClient(WS_Server);
 
 interface Props {
-    children: React.ReactNode
+  children: React.ReactNode
 }
 
 export const SocketProvider: React.FC<Props> = ({ children }) => {

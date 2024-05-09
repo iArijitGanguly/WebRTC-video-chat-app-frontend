@@ -5,12 +5,19 @@ import { SocketContext } from '../contexts/SocketContext';
 
 const Room: React.FC = () => {
   const { id } = useParams();
-  const { socket } = useContext(SocketContext);
+  const { socket, user } = useContext(SocketContext);
+
+  const fetchParticiapntsList = ({ roomId, participants }: { roomId: string, participants: string[] }) => {
+    console.log('Fetched from participants');
+    console.log(roomId, participants);
+  };
 
   useEffect(() => {
-    socket.emit('joined-room', { roomId: id });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if(user) {
+      socket.emit('joined-room', { roomId: id, peerId: user._id });
+      socket.on('get-users', fetchParticiapntsList);
+    }
+  }, [id, user, socket]);
   return(
     <div>
         room: {id}

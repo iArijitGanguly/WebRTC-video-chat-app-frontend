@@ -1,11 +1,12 @@
 import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import UserFeedPlayer from '../components/UserFeedPlayer';
 import { SocketContext } from '../contexts/SocketContext';
 
 const Room: React.FC = () => {
   const { id } = useParams();
-  const { socket, user } = useContext(SocketContext);
+  const { socket, user, stream } = useContext(SocketContext);
 
   const fetchParticiapntsList = ({ roomId, participants }: { roomId: string, participants: string[] }) => {
     console.log('Fetched from participants');
@@ -21,6 +22,7 @@ const Room: React.FC = () => {
   return(
     <div>
         room: {id}
+      <UserFeedPlayer stream={stream} />
     </div>
   ); 
 };
